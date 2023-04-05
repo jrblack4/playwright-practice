@@ -4,15 +4,13 @@ import { config } from "dotenv";
 config();
 
 export default defineConfig({
-  globalSetup: require.resolve('./lib/global-setup'),
+  globalSetup: require.resolve("./lib/global-setup"),
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
   testDir: "./tests",
-  reporter: [
-    ["html"],
-  ],
+  reporter: [["html"]],
 
   projects: [
     {
@@ -21,6 +19,10 @@ export default defineConfig({
       use: {
         trace: "on",
       },
+    },
+    {
+      name: "db-checks",
+      testDir: "tests/db-checks/tests",
     },
   ],
 
