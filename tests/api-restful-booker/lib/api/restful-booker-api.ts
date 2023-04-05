@@ -38,8 +38,6 @@ export class RestfulBookerApi extends Api {
     const authResponse = await response.json();
     RestfulBookerApi.authToken = authResponse["token"];
 
-    console.log("Cookie set!");
-    console.log(RestfulBookerApi.authToken);
     return authResponse["token"];
   }
 }
