@@ -1,52 +1,28 @@
-import { defineConfig, devices } from '@playwright/test';
-require('dotenv').config();
+import { defineConfig, devices } from "@playwright/test";
+import { config } from "dotenv";
+
+config();
 
 export default defineConfig({
+  globalSetup: require.resolve('./lib/global-setup'),
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
-  testDir: './tests',
+  testDir: "./tests",
   reporter: [
-    ['html', { outputFolder: './reports' }],
-    ['json', { outputFolder: './reports' }],
-    ['list', { outputFolder: './reports' }],
-    ['junit', { outputFolder: './reports' }],
+    ["html"],
   ],
 
   projects: [
     {
-      name: 'defaults',
-      testDir: 'tests',
+      name: "api-restful-booker",
+      testDir: "tests/api-restful-booker/tests",
       use: {
-        ...devices['Desktop Chrome'],
-        trace: 'on-first-retry',
-      },
-    },
-    {
-      name: 'ui-automation-playground',
-      testDir: 'tests/ui-automation-playground',
-      use: {
-        ...devices['Desktop Chrome'],
-        trace: 'on-first-retry',
-      },
-    },
-    {
-      name: 'api-automation-playground',
-      testDir: 'tests/api-automation-playground',
-      use: {
-        ...devices['Desktop Chrome'],
-        trace: 'on-first-retry',
+        trace: "on",
       },
     },
   ],
 
-  outputDir: 'reports/',
-
-  /* Run your local dev server before starting the tests */
-  // webServer: {
-  //   command: 'npm run start',
-  //   url: 'http://127.0.0.1:3000',
-  //   reuseExistingServer: !process.env.CI,
-  // },
+  outputDir: "reports/",
 });
