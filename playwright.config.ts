@@ -11,7 +11,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   testDir: "./tests",
   reporter: [
-    ["html"],
+    ["html", { outputFolder: './reports/'}],
   ],
 
   projects: [
@@ -24,5 +24,5 @@ export default defineConfig({
     },
   ],
 
-  outputDir: "reports/",
+  outputDir: "reports/playwright-report",
 });
